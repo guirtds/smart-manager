@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- <link rel="stylesheet" href="/css/global.css"> -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>Lista de Previsões de Churn</title>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="/">Churn API</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="/empresas">Empresas</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/clientes">Clientes</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/transacoes">Transações</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/churn_predictions">Churn Predictions</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<div class="container mt-5">
+    <h1>Lista de Previsões de Churn</h1>
+    <a href="/churn-prediction/create" class="btn btn-primary mb-3">Adicionar Nova Previsão de Churn</a>
+    <table class="table table-bordered">
+        <thead class="thead-light">
+        <tr>
+            <th>ID</th>
+            <th>Probabilidade de Churn</th>
+            <th>Data de Predição</th>
+            <th>Cliente</th>
+            <th>Ações</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="churnPrediction : ${churnPredictions}">
+            <td th:text="${churnPrediction.id}"></td>
+            <td th:text="${churnPrediction.probabilidadeChurn}"></td>
+            <td th:text="${churnPrediction.dataPredicao}"></td>
+            <td th:text="${churnPrediction.cliente.nome}"></td>
+            <td>
+                <a class="btn btn-info btn-sm" th:href="@{/churn-prediction/{id}(id=${churnPrediction.id})}">Ver</a>
+                <a class="btn btn-warning btn-sm" th:href="@{/churn-prediction/edit/{id}(id=${churnPrediction.id})}">Editar</a>
+                <a class="btn btn-danger btn-sm" th:href="@{/churn-prediction/delete/{id}(id=${churnPrediction.id})}" onclick="return confirm('Tem certeza que deseja excluir?');">Excluir</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<!--    <link rel="stylesheet" href="/css/global.css">-->
+    <title th:text="${empresa.id == null ? 'Criar Nova Empresa' : 'Editar Empresa'}">Formulário de Empresa</title>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="/">Churn API</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="/empresas">Empresas</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/clientes">Clientes</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/transacoes">Transações</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/churn_predictions">Churn Predictions</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<div class="container mt-5">
+    <h1 th:text="${empresa.id == null ? 'Criar Nova Empresa' : 'Editar Empresa'}">Formulário de Empresa</h1>
+    <form th:action="@{${empresa.id == null ? '/empresa/create' : '/empresa/update/' + empresa.id}}" th:object="${empresa}" method="post">
+        <div class="form-group">
+            <label for="nome">Nome:</label>
+            <input type="text" id="nome" th:field="*{nome}" class="form-control"/>
+        </div>
+        <div class="form-group">
+            <label for="endereco">Endereço:</label>
+            <input type="text" id="endereco" th:field="*{endereco}" class="form-control"/>
+        </div>
+        <button type="submit" th:text="${empresa.id == null ? 'Criar' : 'Atualizar'}" class="btn btn-primary">Salvar</button>
+    </form>
+    <a href="/empresas" class="btn btn-secondary mt-3">Voltar</a>
+</div>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
